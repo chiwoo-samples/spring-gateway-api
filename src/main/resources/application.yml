@@ -33,7 +33,7 @@ zuul:
       url: http://${PRODUCT_SERVICE_DOMAIN:local.services.vm}:${PRODUCT_SERVICE_PORT:8083}/
 
     proxy-service: 
-      path: /s/proxy/**
+      path: /mc/**
       service-id: cluster-api
 
     static:
