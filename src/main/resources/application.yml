@@ -1,3 +1,4 @@
+
 server:
   port: 8080
   
@@ -11,25 +12,29 @@ zuul:
 
   routes:
     # api: /api/**
+    customer-by-service:
+      path: /s/customer/**
+      service-id: customer-service
     customer-by-ip:
       path: /ip/customer/**
       url: http://${CUSTOMER_SERVICE_IP:192.168.110.113}:8082/
     customer-by-domain:
       path: /nm/customer/**
       url: http://${CUSTOMER_SERVICE_DOMAIN:local.services.vm}:${CUSTOMER_SERVICE_PORT:8082}/
-    customer-by-service:
-      path: /s/customer/**
-      service-id: customer-service 
 
+    product-by-service:
+      path: /s/product/**
+      service-id: product-service 
     product-by-ip:
       path: /ip/product/**
       url: http://${PRODUCT_SERVICE_IP:192.168.110.113}:8083/
     product-by-domain:
       path: /nm/product/**
       url: http://${PRODUCT_SERVICE_DOMAIN:local.services.vm}:${PRODUCT_SERVICE_PORT:8083}/
-    product-by-service:
-      path: /s/product/**
-      service-id: product-service 
+
+    proxy-service: 
+      path: /s/proxy/**
+      service-id: cluster-api
 
     static:
       path: /static/**
@@ -42,4 +47,4 @@ eureka:
   # support to resolve service-id 
   client:
     serviceUrl:
-      defaultZone: http://${DISCOVERY_SERVICE_DOMAIN:localhost}:8666/eureka/
+      defaultZone: http://${DISCOVERY_SERVICE_DOMAIN:localhost}:8761/eureka/
