@@ -2,41 +2,6 @@
 server:
   port: ${port:8080}
 
-
-zuul:
-  ignoredPatterns: /**/admin/**
-  prefix: /api
-
-  routes:
-#   api: /api/**
-    customer-by-service:
-      path: /s/customer/**
-      service-id: customer-service
-#    customer-by-ip:
-#      path: /ip/customer/**
-#      url: http://${CUSTOMER_HOST_IP:127.0.0.1}:8101/
-    customer-by-domain:
-      path: /nm/customer/**
-      url: http://${CUSTOMER_HOSTNAME:localhost}:8101/
-
-    product-by-service:
-      path: /s/product/**
-      service-id: product-service 
-#    product-by-ip:
-#      path: /ip/product/**
-#      url: http://${PRODUCT_HOST_IP:127.0.0.1}:8201/
-    product-by-domain:
-      path: /nm/product/**
-      url: http://${PRODUCT_HOSTNAME:poc.productserver.aws}:8201/
-
-    proxy-service: 
-      path: /mc/**
-      service-id: cluster-api
-
-    static:
-      path: /static/**
-
-
 eureka:
   instance:
     leaseRenewalIntervalInSeconds: 1
@@ -46,3 +11,16 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://${DISCOVERY_HOSTNAME:localhost}:8761/eureka/
+    
+logging:
+  level:
+    ROOT: INFO
+    org.chiwooplatform.cloud.sample.rest: DEBUG 
+    org.chiwooplatform.cloud.sample: DEBUG
+  file: logs/api-gateway.log
+  path: ./logs/
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  
+     
